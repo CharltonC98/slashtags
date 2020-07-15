@@ -9,7 +9,7 @@ YOUTUBE_API_VERSION = "v3"
 youtube_object = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, 
                                         developerKey = DEVELOPER_KEY) 
    
-#    
+# returns list of video descriptions from youtube search request
 def youtube_search_keyword(query, max_results):    
     search_request = youtube_object.search().list(
     q=query,
@@ -33,7 +33,7 @@ def youtube_search_keyword(query, max_results):
 
     return descriptions
 
-# returns tags found in video descriptions
+# returns list of tags found in video descriptions
 def extract_desc_tags(descriptions):
     hashtags = []
     for desc in descriptions:
