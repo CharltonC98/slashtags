@@ -40,7 +40,7 @@ def youtube_search_keyword(query, max_results):
 
     return videosDf
 
-# populates descriptionTags from video descriptions
+# populates description tags from video descriptions
 def extract_desc_tags(df):
     for (_ , row) in df.iterrows():
         tempDesc = re.findall(r"#(\w+)", row['description'])
