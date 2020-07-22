@@ -40,7 +40,7 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld :videos="videos" />
+      <HelloWorld :msg="videos" />
     </v-main>
   </v-app>
 </template>
@@ -58,7 +58,7 @@ export default {
 
   data: () => ({
     search: '',
-    videos: {}
+    videos: []
   }),
   methods: {
     search_videos: function()
@@ -69,8 +69,8 @@ export default {
           query: this.search
         }
       }).then(response => {
-        console.log(response.data)
         this.videos = response.data
+        console.log(this.videos)
       })
     }
 

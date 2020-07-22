@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <v-expansion-panels>
+    <v-expansion-panels 
+      v-model="show"
+      multiple>
       <v-expansion-panel>
         <v-expansion-panel-header>Tags</v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -13,12 +15,12 @@
           Videos used based on your keyword search
           <v-data-table
             :headers="headers"
-            :items="videos"
+            :items="msg"
             class="elevation-1"
           ></v-data-table>
-            <!-- <template v-slot:item.thumbnail="{ item }">
+            <template v-slot:item.thumbnail="{ item }">
                 <img :src="'https://img.youtube.com/vi/' + item.id + '/sddefault.jpg' + item.thumbnail" style="width: 160px; height: 120px" />
-            </template> -->
+            </template>
         </v-expansion-panel-content>
       </v-expansion-panel>
   </v-expansion-panels>
@@ -45,7 +47,11 @@
 <script>
   export default {
     name: 'HelloWorld',
-
+    props: {
+      msg: {
+        type: Array
+      }
+    },
     data: () => ({
       headers: [
         {
@@ -58,8 +64,27 @@
         { text: 'View Count', value: 'viewCount'},
         { text: 'Like Count', value: 'likeCount' },
         { text: 'Dislike Count', value: 'dislikeCount' },
-      ]
+      ],
+      testarray: [
+        {
+          "videoId":"sqYQkACbsfc",
+          "title":"Responding to Wilbur's comments.",
+          "description":"yeyeyeyeyeyeyeyeyeye",
+          "descriptionTags":null,
+          "tags":["ludwig","ludwigahgren","ahgren","gaming","chat","stream","decides","lud"],
+          "viewCount":"282614",
+          "likeCount":
+          "15524",
+          "dislikeCount":"122"
+        },
+      ],
+      show: []
     }),
-    videos: []
+    watch: {
+    msg: function() {
+      console.log(this.msg);
+      this.show = [0,1]
+      }
+    }
   }
 </script>
