@@ -41,6 +41,7 @@ def youtube_search_keyword():
         maxResults=max_results).execute()
 
         videosDf = pd.DataFrame(columns = ['videoId', 'title', 'description', 'descriptionTags', 'tags', 'viewCount', 'likeCount', 'dislikeCount'])
+        videosDf = videosDf.astype(object)
 
         for search_result in search_request.get('items', []):
             if search_result['id']['kind'] == 'youtube#video':
@@ -64,31 +65,15 @@ def youtube_search_keyword():
         return extract_desc_tags(videosDf).to_json(orient = "records")
     else:
         return "Error: No query field provided. Please specify a query."
+        
 # populates description tags from video descriptions
 def extract_desc_tags(df):
     for (_ , row) in df.iterrows():
-        tempDesc = re.findall(r"#(\w+)", row['description'])
-        testStr = ', '.join(tempDesc)
-        df.loc[df.description == row['description'], 'descriptionTags'] = testStr
-
+        tempArr = []
+        for match in re.findall(r"#(\w+)", row['description']):
+            tempArr.append(match)
+        df.at[df.description == row['description'], 'descriptionTags'] = [tempArr]
+        print(tempArr)
     return df
-
-# returns a dictionary of tags and their frequency
-def desc_tags_freq():
-    if 'videos' in request.args:
-        df = (request.args['videos']) 
-
-        tagDict = {}
-        for (_ , row) in df.iterrows():
-            for match in re.findall(r"[^,\s][^\,]*[^,\s]*", row['descriptionTags']):
-                if match:
-                    if match.lower() not in tagDict:
-                        tagDict[match] = 1
-                    else:
-                        tagDict[match.lower()] += 1
-
-        return sorted(tagDict.items(), reverse = True, key=operator.itemgetter(1))
-    else:
-        return "Error: No videos field provided. Please specify videos."
 
 app.run()
