@@ -40,7 +40,7 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld :msg="videos" />
+      <HelloWorld :videos="videos"/>
     </v-main>
   </v-app>
 </template>
@@ -58,7 +58,7 @@ export default {
 
   data: () => ({
     search: '',
-    videos: []
+    videos: [],
   }),
   methods: {
     search_videos: function()

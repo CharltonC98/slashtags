@@ -6,7 +6,32 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Tags</v-expansion-panel-header>
         <v-expansion-panel-content>
-          <!-- DESC AND REG TAGS SEPERATED -->
+          <v-card-text>
+            <v-row>
+              <h2 class="title mb-2">Description Tags</h2>
+              <v-btn icon class="ml-4">
+                <v-icon>mdi-content-copy</v-icon>
+              </v-btn>
+            </v-row>
+            <template v-for="video in testarray">
+              <v-chip v-for="(tag, idx) in video.descriptionTags" :key="idx" class="ma-2">
+                {{ tag }}
+              </v-chip>
+            </template>
+          </v-card-text>
+          <v-card-text>
+            <v-row>
+              <h2 class="title mb-2">Regular Tags</h2>
+              <v-btn icon class="ml-4">
+                <v-icon>mdi-content-copy</v-icon>
+              </v-btn>
+            </v-row>
+            <template v-for="video in testarray">
+              <v-chip v-for="(tag, idx) in video.tags" :key="idx" class="ma-2">
+                {{ tag }}
+              </v-chip>
+            </template>
+          </v-card-text>
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
@@ -15,12 +40,13 @@
           Videos used based on your keyword search
           <v-data-table
             :headers="headers"
-            :items="msg"
+            :items="testarray"
             class="elevation-1"
-          ></v-data-table>
-            <template v-slot:item.thumbnail="{ item }">
-                <img :src="'https://img.youtube.com/vi/' + item.id + '/sddefault.jpg' + item.thumbnail" style="width: 160px; height: 120px" />
+          >
+            <template v-slot:item.videoId="{ item }">
+              <v-img :src="'https://img.youtube.com/vi/' + item.videoId + '/sddefault.jpg'" style="width: 160px; height: 90px" />
             </template>
+          </v-data-table>
         </v-expansion-panel-content>
       </v-expansion-panel>
   </v-expansion-panels>
@@ -48,7 +74,7 @@
   export default {
     name: 'HelloWorld',
     props: {
-      msg: {
+      videos: {
         type: Array
       }
     },
@@ -58,7 +84,7 @@
           text: 'Video',
           align: 'start',
           sortable: false,
-          value: 'thumbnail',
+          value: 'videoId',
         },
         { text: 'Title', value: 'title', sortable: false},
         { text: 'View Count', value: 'viewCount'},
@@ -70,7 +96,7 @@
           "videoId":"sqYQkACbsfc",
           "title":"Responding to Wilbur's comments.",
           "description":"yeyeyeyeyeyeyeyeyeye",
-          "descriptionTags":null,
+          "descriptionTags": ["ludwig", "stream", "clips"],
           "tags":["ludwig","ludwigahgren","ahgren","gaming","chat","stream","decides","lud"],
           "viewCount":"282614",
           "likeCount":
@@ -81,8 +107,8 @@
       show: []
     }),
     watch: {
-    msg: function() {
-      console.log(this.msg);
+    videos: function() {
+      console.log(this.videos);
       this.show = [0,1]
       }
     }
