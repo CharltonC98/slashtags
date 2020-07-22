@@ -26,6 +26,7 @@ def home():
     <p>An API for retriving videos from a keyword search, and extracting tags.</p>'''
    
 # returns a dataframe of video information from a search query
+# returns a dataframe of video information from a search query
 @app.route('/tags/api/videos', methods=['GET'])
 @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def youtube_search_keyword():
@@ -60,10 +61,9 @@ def youtube_search_keyword():
                                                                                           response['items'][0]['statistics']['likeCount'], \
                                                                                        response['items'][0]['statistics']['dislikeCount']  
 
-        return videosDf.to_json(orient = "records")
+        return extract_desc_tags(videosDf).to_json(orient = "records")
     else:
         return "Error: No query field provided. Please specify a query."
-
 # populates description tags from video descriptions
 def extract_desc_tags(df):
     for (_ , row) in df.iterrows():
@@ -74,16 +74,21 @@ def extract_desc_tags(df):
     return df
 
 # returns a dictionary of tags and their frequency
-def desc_tags_freq(df):
-    tagDict = {}
-    for (_ , row) in df.iterrows():
-        for match in re.findall(r"[^,\s][^\,]*[^,\s]*", row['descriptionTags']):
-            if match:
-                if match.lower() not in tagDict:
-                    tagDict[match] = 1
-                else:
-                    tagDict[match.lower()] += 1
+def desc_tags_freq():
+    if 'videos' in request.args:
+        df = (request.args['videos']) 
 
-    return sorted(tagDict.items(), reverse = True, key=operator.itemgetter(1))
+        tagDict = {}
+        for (_ , row) in df.iterrows():
+            for match in re.findall(r"[^,\s][^\,]*[^,\s]*", row['descriptionTags']):
+                if match:
+                    if match.lower() not in tagDict:
+                        tagDict[match] = 1
+                    else:
+                        tagDict[match.lower()] += 1
+
+        return sorted(tagDict.items(), reverse = True, key=operator.itemgetter(1))
+    else:
+        return "Error: No videos field provided. Please specify videos."
 
 app.run()
