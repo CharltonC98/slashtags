@@ -11,15 +11,16 @@
           <v-card-text>
             <v-row>
               <h2 class="title mb-2">Description Tags</h2>
-              <v-btn icon class="ml-4">
+              <v-btn icon class="ml-4" v-on:click="copy_desc">
                 <v-icon>mdi-content-copy</v-icon>
               </v-btn>
             </v-row>
             <v-chip-group 
             multiple 
             max="3"
-            active-class="teal lighten-3--text">
-              <v-chip v-for="(tag, i) in testarray.descriptionTags" :key="`A-${i}`" class="ma-2">
+            active-class="teal lighten-3--text"
+            v-model="descGroup">
+              <v-chip v-for="(tag, i) in Object.keys(descTags)" :key="`A-${i}`" class="ma-2">
                 {{ tag }}
               </v-chip>
             </v-chip-group>
@@ -62,11 +63,9 @@
         </h5>
 
         <p class="subheading font-weight-regular">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-          et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
-          officia deserunt mollit anim id est laborum.
+          SlashTags is a tool for recomending tags based on keyword(s) and viewing related video statistics <br>
+          Look at the README to get started <br> <br>
+          Created by Cameron Charlton - <a href="https://twitter.com/huhmit"> Twitter </a> - <a href="youtube.com/c/Hermit_CS"> YouTube </a>
         </p>
       </v-col>
     </v-row>
@@ -111,9 +110,24 @@ import chroma from 'chroma-js'
       regTags: {},
       descScale: {},
       regScale: {},
+      descGroup: [],
       show: []
     }),
     methods: {
+      copy_desc: function() {
+        var copy = ""
+        for (var i = 0; i < Object.keys(this.descTags).length; i++) { 
+          if (this.descGroup.includes(i)) {
+            copy += "#" + Object.keys(this.descTags)[i] + " "
+          }
+        }
+        var dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = copy;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+      },
       copy_reg: function() {
         var dummy = document.createElement("textarea");
         document.body.appendChild(dummy);
