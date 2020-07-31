@@ -7,7 +7,7 @@ SlashTags was created as an experiment to gauge the importance of description ha
 <img src="https://github.com/CharltonC98/slash-tags/blob/master/app/src/assets/slash_logo_outerglow.png" width="40%">
 
 ## Prerequisites
-You need the following:
+You will need a Google API key and ensure the key has access to the YouTube Data API service. You will also need the following installed:
 
 * Node.js [[^](https://nodejs.org/en/)]
 * npm [[^](https://www.npmjs.com/)] 
