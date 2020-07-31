@@ -3,6 +3,7 @@ Use SlashTags to chose the tags for your next video, or just stare at the stats 
 
 ## Overview
 SlashTags was created as an experiment to gauge the importance of description hashtags, which some YouTube SEO tools ignore. SlashTags currently ranks tags based on the density of a tag in the sample taken, however other methods such as autocomplete or sampling recommended videos are being considered.
+
 <img src="https://github.com/CharltonC98/slash-tags/blob/master/app/src/assets/slash_logo_outerglow.png" width="40%">
 
 ## Prerequisites
