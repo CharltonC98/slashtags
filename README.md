@@ -22,6 +22,12 @@ You will also need to install the following:
 * Pandas [[^](https://pypi.org/project/pandas/)]
 
 ## Usage
+The api 'Tags.py' needs to be running alongside the app, cd to the api directory and run:
+
+```
+python tags.py
+```
+
 Navigate to the 'app' directory and run:
 
 ```
