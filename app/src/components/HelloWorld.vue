@@ -48,7 +48,7 @@
             :items="videos"
             class="elevation-1"
           >
-            <template v-slot:item.videoId="{ item }">
+            <template v-slot:[`item.videoId`]="{ item }">
               <v-img :src="'https://img.youtube.com/vi/' + item.videoId + '/sddefault.jpg'" style="width: 160px; height: 90px" />
             </template>
           </v-data-table>
