@@ -33,7 +33,7 @@ def youtube_search_keyword():
     
     if 'query' in request.args:
         query = str(request.args['query']) 
-        max_results = 2
+        max_results = 5
 
         search_request = youtube_object.search().list(
         q=query,
@@ -55,12 +55,12 @@ def youtube_search_keyword():
             response = video_request.execute()
 
             videosDf.loc[videosDf.videoId == row['videoId'], ['description', 'title', 'tags', 'viewCount', 'likeCount', 'dislikeCount']] = \
-                                                                                           response['items'][0]['snippet']['description'], \
-                                                                                                 response['items'][0]['snippet']['title'], \
-                                                                                                  response['items'][0]['snippet']['tags'], \
-                                                                                          response['items'][0]['statistics']['viewCount'], \
-                                                                                          response['items'][0]['statistics']['likeCount'], \
-                                                                                       response['items'][0]['statistics']['dislikeCount']  
+                                                                                           response['items'][0]['snippet'].get('description'), \
+                                                                                                 response['items'][0]['snippet'].get('title'), \
+                                                                                                  response['items'][0]['snippet'].get('tags'), \
+                                                                                          response['items'][0]['statistics'].get('viewCount'), \
+                                                                                          response['items'][0]['statistics'].get('likeCount'), \
+                                                                                       response['items'][0]['statistics'].get('dislikeCount')  
 
         return extract_desc_tags(videosDf).to_json(orient = "records")
     else:
