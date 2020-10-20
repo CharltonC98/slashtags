@@ -13,12 +13,13 @@ A Google API key with access to the YouTube Data API service is required.
 
 You will also need to install the following:
 
+* Python 3 [[^](https://www.python.org/)]
 * Node.js [[^](https://nodejs.org/en/)]
 * npm [[^](https://www.npmjs.com/)] 
 * Vue.js [[^](https://vuejs.org)]
 * Vuetify [[^](https://vuetifyjs.com/)]
+* Axios [[^](https://www.npmjs.com/package/axios)]
 * chroma.js [[^](https://www.npmjs.com/package/chroma-js)]
-* Python 3 [[^](https://www.python.org/)]
 * Goggle API Client [[^](https://github.com/googleapis/google-api-python-client)]
 * Flask [[^](https://flask.palletsprojects.com/en/1.1.x/quickstart/)]
 * Pandas [[^](https://pypi.org/project/pandas/)]
